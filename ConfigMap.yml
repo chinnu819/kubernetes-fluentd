@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluentd-conf
+data:
+  fluentd.conf.template: |
+    <source>
+      @type tail
+      tag "#{ENV['TAG_VALUE']}"
+      path /var/log/nginx/access.log
+      format nginx
+    </source>
+    <match *.*>
+      @type stdout
+    </match>
